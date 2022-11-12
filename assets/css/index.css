@@ -1,0 +1,161 @@
+* {
+    box-sizing: border-box;
+}
+
+/* For the header box */
+.titlebox {
+    /*position: absolute;*/
+    top: 5px;
+    left: 1%;
+    width: 100%;
+    height: 150px;
+}
+
+.titleheader {
+    position: absolute;
+    padding-top: 5px;
+    left: 50px;
+    line-height: 1px;
+}
+
+h1 {
+    color: white;
+    font-size: 60px;
+}
+
+h2 {
+    color: white;
+    font-size: 30px;
+}
+
+h3 {
+    color: black;
+    font-size: 30px;
+    text-align: center;
+}
+h4 {
+    color: black;
+    font-size: 20px;
+    text-align: center;
+}
+
+
+/*For the button row*/
+.buttonrow{
+    height: 85px;
+    width: 100%;
+    background-color: white;
+    padding-bottom: 10px
+}
+.left-col-but{
+    width:25%;
+    float: left;
+    height:95px;
+    /*background-color: black;*/
+    text-align: center;
+    font-size: 25px;
+}
+.right-col-but{
+    width:75%;
+    float: left;
+    height:95px;
+    /*background-color: black;*/
+    text-align: center;
+    font-size: 25px;
+}
+/* Graphs */
+
+.whiteaxis line {
+    stroke: white;
+}
+
+.whiteaxis path {
+    stroke: lightgray;
+}
+
+.whiteaxis text {
+    fill: gray;
+}
+
+.bar {
+    fill: #00CED1;
+}
+
+.countryaxis {
+    font-size: 15px;
+}
+.countryaxis path {
+    stroke: lightgray;
+}
+
+
+/*Contents*/
+
+
+.container {
+    padding-top: 10px;
+
+}
+
+.left-col, .right-col {
+    line-height: 1px;
+    float: left;
+    height: 670px;
+    padding-bottom: 20px;
+
+    overflow-y: scroll;
+}
+
+.left-col::-webkit-scrollbar {
+    display: none;
+}
+
+.right-col::-webkit-scrollbar {
+    display: none;
+}
+
+.simplebar-scrollbar::before {
+    background-color: #D7E7F3;
+}
+.left-col {
+
+    border-style: solid;
+    border-color: white lightgray white white;
+    width: 25%;
+}
+
+.right-col {
+    width: 25%;
+    border-style: solid;
+    border-color: white white white lightgray;
+}
+
+.center-col {
+    width: 50%;
+    float: left;
+    line-height: 1px;
+
+}
+
+.map{
+    background-position: left;
+}
+
+#selectButton{
+    width: 200px;
+    font-size: 15px;
+
+}
+#cumbox{
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.slider{
+
+    padding-left: 100px;
+}
+.slider text{
+    font-size: 18px;
+
+}

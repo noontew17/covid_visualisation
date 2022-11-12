@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--  Loading in the scripts-->
+
+    <!--  External-->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v3.min.js"></script>
+    <script src="https://unpkg.com/d3-simple-slider"></script>
+    <link rel="stylesheet" href="https://unpkg.com/simplebar@latest/dist/simplebar.css"/>
+    <script src="https://unpkg.com/simplebar@latest/dist/simplebar.min.js"></script>
+    <script src="https://d3js.org/d3-zoom.v2.min.js"></script>
+    <!--  css-->
+    <link rel="stylesheet" href="assets/css/index.css">
+    <!--  Js-->
+    <script src="assets/js/cases.js"></script>
+    <script src="assets/js/deaths.js"></script>
+    <script src="assets/js/test.js"></script>
+    <script src="assets/js/hospital.js"></script>
+    <script src="assets/js/world_cases.js"></script>
+    <script src="assets/js/world_death.js"></script>
+    <script src="assets/js/barchart.js"></script>
+    <script src="assets/js/barchart_deaths.js"></script>
+    <script src="assets/js/title_change_dai_cum.js"></script>
+
+
+
+
+    <div class="titlebox" style="background-color: #008b8b ">
+        <div class="titleheader" style="background-color: #008b8b">
+            <h1>Q1:What is the spread of COVID-19 over time </h1> <br/>
+            <h2>December 31,2019 - April 5, 2021</h2>
+        </div>
+    </div>
+</head>
+<body>
+
+<div class="buttonrow">
+    <div class="left-col-but">
+        Cumulative or Daily <br>
+        <select id="selectButton"> </select>
+    </div>
+    <div class="right-col-but">
+        Cases or Deaths<br>
+        <select id="CaseDeathButton"> </select>
+    </div>
+
+</div>
+<div class="container">
+    <div class="left-col" data-simplebar>
+        <h3 id="CasesGraph_title"> Daily Cases</h3>
+        <div id="CasesGraph"></div>
+        <h3 id = "DeathsGraph_title"> Daily Deaths</h3>
+        <div id="DeathsGraph"></div>
+        <h3 id="TestsGraph_title"> Daily Positive Tests</h3>
+        <div id="TestsGraph"></div>
+        <h3 id="HospitalsGraph_title"> Daily Hospitalization</h3>
+        <div id="HospitalsGraph"></div>
+
+    </div>
+
+    <div class="center-col">
+
+        <h3 id="Map_title"> Country Positive Cases</h3>
+        <div class="slider"></div>
+        <h4>Select a Country to see more details</h4>
+        <svg id="map" width="625" height="500"></svg>
+    </div>
+
+
+    <div class="right-col" data-simplebar>
+        <h3 id="BarChart_title"> Country Positive Cases </h3>
+        <h4>Select a Country to see more details</h4>
+        <div id="cum-graph"></div>
+
+
+    </div>
+</div>
+
+<script>
+    <!-- Plotting the initial page-->
+    daily_cases("#CasesGraph")
+    daily_deaths("#DeathsGraph")
+    daily_tests("#TestsGraph")
+    daily_hospital("#HospitalsGraph")
+    barchart_cases("#cum-graph")
+    world_map_cases("#map", ".slider")
+
+    var option_day_cum = ["Daily", "Cumulative"]
+    var option_case_death = ["Cases", "Deaths"]
+    // add the options to the button
+    d3.select("#selectButton")
+        .selectAll('myOptions')
+        .data(option_day_cum)
+        .enter()
+        .append('option')
+        .text(function (d) {
+            return d;
+        }) // text showed in the menu
+        .attr("value", function (d) {
+            return d;
+        }) // corresponding value returned by the button
+    // When the button is changed, run the updateChart function
+    d3.select("#selectButton").on("change", function (d) {
+        // recover the option that has been chosen
+        var selectedOption = d3.select(this).property("value")
+        // run the updateChart function with this selected option
+        update_day_cum(selectedOption)
+    })
+
+    d3.select("#CaseDeathButton")
+        .selectAll('myOptions')
+        .data(option_case_death)
+        .enter()
+        .append('option')
+        .text(function (d) {
+            return d;
+        }) // text showed in the menu
+        .attr("value", function (d) {
+            return d;
+        })
+    // When the button is changed, run the updateChart function
+    d3.select("#CaseDeathButton").on("change", function (d) {
+        d3.select(".slider")
+        d3.select("#cum-graph")
+        // recover the option that has been chosen
+        var selectedOption = d3.select(this).property("value")
+        // run the updateChart function with this selected option
+        update_case_death(selectedOption)
+    })
+
+    function update_case_death(SelectedData){
+        if (SelectedData == 'Cases'){
+            world_map_cases("#map", ".slider")
+            barchart_cases("#cum-graph")
+            changeHeader_cases()
+        };
+        if (SelectedData == 'Deaths'){
+            world_map_deaths("#map", ".slider")
+            barchart_deaths("#cum-graph")
+            changeHeader_deaths()
+        };
+    }
+    function update_day_cum(SelectedData) {
+        if (SelectedData == 'Cumulative') {
+            cum_cases("#CasesGraph")
+            cum_deaths("#DeathsGraph")
+            cum_tests("#TestsGraph")
+            cum_hospital("#HospitalsGraph")
+            changeHeader_cum()
+        }
+
+        if (SelectedData == 'Daily') {
+            daily_cases("#CasesGraph")
+            daily_deaths("#DeathsGraph")
+            daily_tests("#TestsGraph")
+            daily_hospital("#HospitalsGraph")
+            changeHeader_day()
+        }
+
+    }
+
+
+    //
+
+
+</script>
+
+
+</body>
+</html>
